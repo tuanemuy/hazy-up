@@ -1,0 +1,10 @@
+{
+  "name": "hazy-up",
+  "version": "0.0.1",
+  "description": "",
+  "private": "true",
+  "workspaces": [
+    "packages/document",
+    "packages/app"
+  ]
+}
