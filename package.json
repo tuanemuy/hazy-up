@@ -7,5 +7,6 @@
     "packages/core",
     "packages/app",
     "packages/templates"
-  ]
+  ],
+  "license": "MIT"
 }
