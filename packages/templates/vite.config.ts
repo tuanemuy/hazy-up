@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { peerDependencies } from "./package.json";
 
@@ -21,10 +21,16 @@ export default defineConfig({
   build: {
     lib: {
       entry: {
-        "index": resolve(__dirname, "src/index.ts"),
-        "simple-main-visual": resolve(__dirname, "src/SimpleMainVisual.tsx"),
-        "simple-section-title": resolve(__dirname, "src/SimpleSectionTitle.tsx"),
-        "simple-panel": resolve(__dirname, "src/SimplePanel.tsx"),
+        index: resolve(__dirname, "src/index.ts"),
+        "simple-main-visual": resolve(
+          __dirname,
+          "src/SimpleMainVisual/index.ts"
+        ),
+        "simple-section-title": resolve(
+          __dirname,
+          "src/SimpleSectionTitle/index.ts"
+        ),
+        "simple-panel": resolve(__dirname, "src/SimplePanel/index.ts"),
       },
       name: "HazyUpTemplates",
     },
@@ -38,5 +44,11 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), tsConfigPaths(), dts()],
+  plugins: [
+    react({
+      // jsxRuntime: "classic",
+    }),
+    tsConfigPaths(),
+    dts(),
+  ],
 });

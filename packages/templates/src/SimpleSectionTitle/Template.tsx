@@ -1,14 +1,29 @@
-import { j as e } from "./jsx-runtime-cbaaaa63.js";
-import { css as t } from "@emotion/css";
-const a = [
+import { css } from "@hazy-up/core/document";
+
+type Props = {
+  title: string;
+  subtitle: string;
+  reverse: boolean;
+  className: string;
+};
+
+export const props = [
   { type: "text", key: "title", name: "タイトル" },
   { type: "text", key: "subtitle", name: "サブタイトル" },
-  { type: "boolean", key: "reverse", name: "反転色" }
-], n = ({ title: r, subtitle: o, reverse: i, className: s }) => /* @__PURE__ */ e.jsxs("div", { className: `${s}${i ? " reverse" : ""}`, children: [
-  /* @__PURE__ */ e.jsx("h3", { children: r }),
-  /* @__PURE__ */ e.jsx("p", { children: o })
-] }), l = {
-  base: t`
+  { type: "boolean", key: "reverse", name: "反転色" },
+];
+
+export function Template({ title, subtitle, reverse, className }: Props) {
+  return (
+    <div className={`${className}${reverse ? " reverse" : ""}`}>
+      <h3>{title}</h3>
+      <p>{subtitle}</p>
+    </div>
+  );
+}
+
+export const styles = {
+  base: css`
     position: relative;
     width: 100%;
     min-width: 100px;
@@ -47,28 +62,17 @@ const a = [
       }
     }
   `,
-  lg: t`
+  lg: css`
     h3 {
       font-size: 2.5rem;
     }
-  `
-}, c = {
+  `,
+};
+
+export const defaultProps = {
   title: "Section Title",
   subtitle: "セクションタイトル",
-  reverse: !1
-}, f = "推奨表示サイズの説明等", d = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
-  __proto__: null,
-  Template: n,
-  defaultProps: c,
-  description: f,
-  props: a,
-  styles: l
-}, Symbol.toStringTag, { value: "Module" }));
-export {
-  d as S,
-  n as T,
-  f as a,
-  c as d,
-  a as p,
-  l as s
+  reverse: false,
 };
+
+export const description = "推奨表示サイズの説明等";

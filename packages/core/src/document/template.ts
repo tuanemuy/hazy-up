@@ -1,3 +1,4 @@
+import { css as emotion } from "@emotion/css";
 import { Image } from "./media";
 import { Screen, ScreenKind } from "./screen";
 
@@ -145,3 +146,5 @@ export class TemplateCollection {
     return new TemplateCollection(slug, name, templates);
   }
 }
+
+export const css = emotion;

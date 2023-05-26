@@ -1,10 +1,11 @@
-import { css } from "@emotion/css";
+import { css } from "@hazy-up/core/document";
 
 type Props = {
   name: string;
   description: string;
   reverse: boolean;
-} & React.HTMLAttributes<HTMLDivElement>;
+  className: string;
+};
 
 export const props = [
   { type: "text", key: "name", name: "名前" },
@@ -12,14 +13,14 @@ export const props = [
   { type: "boolean", key: "reverse", name: "反転色" },
 ];
 
-export const Template = ({ name, description, reverse, className }: Props) => {
+export function Template({ name, description, reverse, className }: Props) {
   return (
     <div className={`${className} ${reverse ? "reverse" : ""}`}>
       <h3>{name}</h3>
       <p>{description}</p>
     </div>
   );
-};
+}
 
 export const styles = {
   base: css`

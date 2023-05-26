@@ -42,7 +42,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "MainVisual",
-                  url: "./MainVisualTemplateSample.tsx",
+                  url: "http://localhost:5173/simple-main-visual.js",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_mv_sample.jpg",
                     assets: [

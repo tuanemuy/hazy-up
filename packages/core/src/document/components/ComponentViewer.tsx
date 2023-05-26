@@ -25,6 +25,7 @@ export function ComponentViewer({ component }: ComponentViewProps) {
         const args: GenerateTemplateModuleArgs = await import(template.url);
         setTm(TemplateModule.generate(args));
       } catch (e) {
+        console.log(e);
         setTm(null);
       }
     })();

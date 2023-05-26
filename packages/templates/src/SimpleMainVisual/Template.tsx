@@ -1,5 +1,4 @@
-import { css } from "@emotion/css";
-import { Image } from "@hazy-up/core/document";
+import { Image, css } from "@hazy-up/core/document";
 
 type Props = {
   title: string;
@@ -14,12 +13,12 @@ export const props = [
   { type: "image", key: "backgroundImage", name: "背景画像" },
 ];
 
-export const Template = ({
+export function Template({
   title,
   subtitle,
   backgroundImage,
   className,
-}: Props) => {
+}: Props) {
   return (
     <div className={className}>
       <div className="content">
@@ -37,7 +36,7 @@ export const Template = ({
       />
     </div>
   );
-};
+}
 
 export const styles = {
   base: css`
