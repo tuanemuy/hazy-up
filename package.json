@@ -4,7 +4,8 @@
   "description": "",
   "private": "true",
   "workspaces": [
-    "packages/document",
-    "packages/app"
+    "packages/core",
+    "packages/app",
+    "packages/templates"
   ]
 }
