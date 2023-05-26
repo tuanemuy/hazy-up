@@ -42,6 +42,65 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "MainVisual",
+                  url: "https://github.com/tuanemuy/hazy-up/blob/main/packages/templates/src/SimpleMainVisual.tsx",
+                  thumbnail: Image.generate({
+                    src: "http://localhost:5173/images/thumbnail_mv_sample.jpg",
+                    assets: [
+                      ImageAsset.generate({
+                        label: "750w",
+                        mimeType: "image/jpeg",
+                        path: "images/thumbnail_mv_sample.jpg",
+                        url: "http://localhost:5173/images/thumbnail_mv_sample.jpg",
+                      }),
+                    ],
+                  }),
+                }),
+                props: {
+                  title:
+                    "Building a Platform in Space to Benefit Life on Earth",
+                  subtitle:
+                    "Space stations that open the next chapter of human space exploration and development",
+                  backgroundImage: Image.generate({
+                    src: "https://source.unsplash.com/1600x900/?astronaut",
+                  }),
+                },
+              }),
+              children: [],
+            }),
+          ],
+        }),
+      ],
+    }),
+  ]
+});
+
+/*
+const tree = Tree.generate({
+  role: Page.generate({ name: "ホーム", path: "" }),
+  children: [
+    Tree.generate({
+      role: Section.generate({
+        padding: new Responsive([[0, 0]]),
+        isWrapped: false,
+        background: null,
+        backgroundImage: null,
+        isSemantic: true,
+      }),
+      children: [
+        Tree.generate({
+          role: Columns.generate({
+            spacing: new Responsive([0]),
+            repeat: new Responsive([1]),
+            justifyContent: "stretch",
+            alignItems: "stretch",
+            gap: new Responsive([1]),
+            flexWrap: true,
+          }),
+          children: [
+            Tree.generate({
+              role: Component.generate({
+                template: Template.generate({
+                  name: "MainVisual",
                   url: "http://localhost:5173/simple-main-visual.js",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_mv_sample.jpg",
@@ -389,6 +448,7 @@ const tree = Tree.generate({
     }),
   ],
 });
+*/
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
