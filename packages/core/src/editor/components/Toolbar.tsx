@@ -20,7 +20,11 @@ export function Toolbar({}: Props) {
   const focused = focusedNode?.id ? nodeMap[focusedNode.id] : null;
 
   return (
-    <Box width="100%" boxShadow="0px 0px 4px rgba(0, 0, 0, .25)">
+    <Box
+      position="relative"
+      width="100%"
+      boxShadow="0px 0px 4px rgba(0, 0, 0, .25)"
+    >
       <Flex
         justifyContent="space-between"
         alignItems="center"

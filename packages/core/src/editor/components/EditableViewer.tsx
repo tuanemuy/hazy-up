@@ -8,7 +8,7 @@ import {
   ComponentViewer,
   SectionViewer,
 } from "@/document/components";
-import { Editable } from "@/editor/components";
+import { Editable, AddColumnsOrComponent } from "@/editor/components";
 import { useEditorStateContext } from "@/editor/contexts";
 
 type Props = {
@@ -73,6 +73,12 @@ export function EditableViewer({ id }: Props) {
               </ColumnsItem>
             );
           })}
+
+          {grandchildren.length < 1 && (
+            <ColumnsItem flexGrow={0}>
+              <AddColumnsOrComponent nodeId={node.id} />
+            </ColumnsItem>
+          )}
         </ColumnsViewer>
       </Editable>
     );

@@ -22,10 +22,9 @@ export function ComponentViewer({ component }: ComponentViewProps) {
   useEffect(() => {
     (async () => {
       try {
-        const args: GenerateTemplateModuleArgs = await import(template.url);
-        setTm(TemplateModule.generate(args));
+        const templateModule = await template.transpile();
+        setTm(templateModule);
       } catch (e) {
-        console.log(e);
         setTm(null);
       }
     })();

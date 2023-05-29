@@ -180,7 +180,7 @@ export function ComponentConfig({ node }: Props) {
   useEffect(() => {
     (async () => {
       try {
-        const mod = await import(template.url);
+        const mod = await template.transpile();
         setPropsDef(mod.props || null);
       } catch (e) {
         setPropsDef(null);

@@ -29,6 +29,25 @@ export class Template {
       this.thumbnail.src
     );
   }
+
+  async transpile(): Promise<TemplateModule> {
+    try {
+      const res = await fetch(this.url, {
+        method: "GET",
+        headers: {
+          "Content-Type": "text/javascript",
+        },
+      });
+      const text = await res.text();
+      const code = await transpile(text);
+      const args: GenerateTemplateModuleArgs = await import(
+        `data:text/javascript,${encodeURIComponent(code)}`
+      );
+      return TemplateModule.generate(args);
+    } catch (e: any) {
+      throw new Error(`Failed to transpile: ${e.message}`);
+    }
+  }
 }
 
 export type PropsType = "text" | "textarea" | "image" | "boolean";
@@ -148,3 +167,52 @@ export class TemplateCollection {
 }
 
 export const css = emotion;
+
+import {
+  CompilerOptions,
+  JsxEmit,
+  ModuleKind,
+  ScriptTarget,
+  transpileModule,
+} from "typescript";
+
+const defaultCompilerOptions: CompilerOptions = {
+  jsx: JsxEmit.React,
+  target: ScriptTarget.ESNext,
+  module: ModuleKind.ESNext,
+};
+
+// @ts-ignore
+window.process = {
+  // @ts-ignore
+  versions: {
+    pnp: "undefined",
+  },
+};
+
+const transpile = async (code: string): Promise<string> => {
+  const opt = { ...defaultCompilerOptions };
+  const { outputText } = transpileModule(code, {
+    compilerOptions: opt,
+  });
+
+  const importReactRegex = /import\s+React\s+from\s+['"]react['"];?/g;
+  const importAllRegex = /import\s+.*\s+from\s+['"].*['"];?/g;
+  const importRegex = /import\s+.*\s+from\s+['"][^.].*['"];?/g;
+  const matches = code.replace(importReactRegex, "").match(importRegex);
+
+  const imports =
+    matches?.reduce((acc, current) => {
+      const converted = current.replace(
+        /from\s*['"]([^'"]*)['"]/g,
+        function (_match, p1) {
+          return `from "https://esm.sh/${p1}"`;
+        }
+      );
+      return `${acc}${converted}\n`;
+    }, "") || "";
+
+  const withoutImports = outputText.replace(importAllRegex, "");
+
+  return `import React from "https://esm.sh/react";\n${imports}${withoutImports}`;
+};

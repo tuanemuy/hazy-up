@@ -28,7 +28,7 @@ const templateCollections = [
     templates: [
       Template.generate({
         name: "MainVisual",
-        url: "http://localhost:5173/templates/MainVisualTemplateSample.tsx",
+        url: "http://localhost:5173/SimpleMainVisual/Template.tsx",
         thumbnail: Image.generate({
           src: "http://localhost:5173/images/thumbnail_mv_sample.jpg",
           assets: [
@@ -43,7 +43,7 @@ const templateCollections = [
       }),
       Template.generate({
         name: "SectionTitle",
-        url: "http://localhost:5173/templates/SectionTitleTemplateSample.tsx",
+        url: "http://localhost:5173/SimpleSectionTitle/Template.tsx",
         thumbnail: Image.generate({
           src: "http://localhost:5173/images/thumbnail_title_sample.jpg",
           assets: [
@@ -58,7 +58,7 @@ const templateCollections = [
       }),
       Template.generate({
         name: "Sample",
-        url: "http://localhost:5173/templates/TemplateSample.tsx",
+        url: "http://localhost:5173/SimplePanel/Template.tsx",
         thumbnail: Image.generate({
           src: "http://localhost:5173/images/thumbnail_sample.jpg",
           assets: [
@@ -249,7 +249,7 @@ const templateCollections = [
 type Props = {
   isOpen: boolean;
   onClose: () => void;
-  onSubmit: (template: Template) => void;
+  onSubmit: (template: Template, defaultProps: { [key: string]: any }) => void;
 };
 
 export function SelectTemplateModal({ isOpen, onClose, onSubmit }: Props) {
@@ -260,13 +260,22 @@ export function SelectTemplateModal({ isOpen, onClose, onSubmit }: Props) {
     onClose();
   };
 
-  const submit = () => {
-    if (focused) {
-      setFocused(null);
-      onSubmit(templateCollections[focused[0]].templates[focused[1]]);
-    } else {
+  const submit = async () => {
+    if (!focused) {
       close();
+      return;
     }
+
+    setFocused(null);
+
+    try {
+      const template = templateCollections[focused[0]].templates[focused[1]];
+      const { defaultProps } = await template.transpile();
+      onSubmit(
+        templateCollections[focused[0]].templates[focused[1]],
+        defaultProps
+      );
+    } catch {}
   };
 
   return (

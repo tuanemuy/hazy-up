@@ -2,7 +2,7 @@ import { Global, css } from "@emotion/react";
 import { NodeID, NodeMap, Theme } from "@/document";
 import { Theme as HazyUpTheme } from "@/theme";
 
-import { Center, IconButton } from "@chakra-ui/react";
+import { Box, Center, IconButton } from "@chakra-ui/react";
 import { AddIcon } from "@chakra-ui/icons";
 import { ThemeProvider, ScreenStateContextProvider } from "@/document/contexts";
 import { EditableViewer, Toolbar, ZoomableFrame } from "@/editor/components";
@@ -35,8 +35,6 @@ export function Editor({ initialNodeMap, rootId, theme }: Props) {
             `}
           />
 
-          <Toolbar />
-
           <InnerEditor rootId={rootId} />
         </ScreenStateContextProvider>
       </ThemeProvider>
@@ -52,19 +50,34 @@ function InnerEditor({ rootId }: InnerEditorProps) {
   const { focus, addSection } = useEditorStateContext();
 
   return (
-    <ZoomableFrame onBlankClicked={() => focus(rootId)}>
-      <EditableViewer id={rootId} />
+    <>
+      <Box position="fixed" zIndex="2" top="0" left="0" width="100vw">
+        <Toolbar />
+      </Box>
 
-      <Center paddingY={`${HazyUpTheme.sizes.grid * 2}px`}>
-        <IconButton
-          aria-label="Add row"
-          icon={<AddIcon />}
-          onClick={(e) => {
-            addSection();
-            e.stopPropagation();
-          }}
-        />
-      </Center>
-    </ZoomableFrame>
+      <Box
+        position="fixed"
+        zIndex="1"
+        top="0"
+        left="0"
+        width="100vw"
+        height="100vh"
+      >
+        <ZoomableFrame onBlankClicked={() => focus(rootId)}>
+          <EditableViewer id={rootId} />
+
+          <Center paddingY={`${HazyUpTheme.sizes.grid * 2}px`}>
+            <IconButton
+              aria-label="Add row"
+              icon={<AddIcon />}
+              onClick={(e) => {
+                addSection();
+                e.stopPropagation();
+              }}
+            />
+          </Center>
+        </ZoomableFrame>
+      </Box>
+    </>
   );
 }

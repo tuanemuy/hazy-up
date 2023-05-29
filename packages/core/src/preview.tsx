@@ -16,6 +16,7 @@ import {
 import { ChakraProvider } from "@chakra-ui/react";
 import { Editor } from "@/editor/components/Editor";
 
+/*
 const tree = Tree.generate({
   role: Page.generate({ name: "ホーム", path: "" }),
   children: [
@@ -42,7 +43,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "MainVisual",
-                  url: "https://github.com/tuanemuy/hazy-up/blob/main/packages/templates/src/SimpleMainVisual.tsx",
+                  url: "http://localhost:5173/SimpleMainVisual/Template.tsx",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_mv_sample.jpg",
                     assets: [
@@ -71,10 +72,10 @@ const tree = Tree.generate({
         }),
       ],
     }),
-  ]
+  ],
 });
+*/
 
-/*
 const tree = Tree.generate({
   role: Page.generate({ name: "ホーム", path: "" }),
   children: [
@@ -101,7 +102,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "MainVisual",
-                  url: "http://localhost:5173/simple-main-visual.js",
+                  url: "http://localhost:5173/SimpleMainVisual/Template.tsx",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_mv_sample.jpg",
                     assets: [
@@ -153,7 +154,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "SectionTitle",
-                  url: "./SectionTitleTemplateSample.tsx",
+                  url: "http://localhost:5173/SimpleSectionTitle/Template.tsx",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_title_sample.jpg",
                     assets: [
@@ -189,7 +190,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "Sample",
-                  url: "./TemplateSample.tsx",
+                  url: "http://localhost:5173/SimplePanel/Template.tsx",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_sample.jpg",
                     assets: [
@@ -223,7 +224,7 @@ const tree = Tree.generate({
                   role: Component.generate({
                     template: Template.generate({
                       name: "Sample",
-                      url: "./TemplateSample.tsx",
+                      url: "http://localhost:5173/SimplePanel/Template.tsx",
                       thumbnail: Image.generate({
                         src: "http://localhost:5173/images/thumbnail_sample.jpg",
                         assets: [
@@ -247,7 +248,7 @@ const tree = Tree.generate({
                   role: Component.generate({
                     template: Template.generate({
                       name: "Sample",
-                      url: "./TemplateSample.tsx",
+                      url: "http://localhost:5173/SimplePanel/Template.tsx",
                       thumbnail: Image.generate({
                         src: "http://localhost:5173/images/thumbnail_sample.jpg",
                         assets: [
@@ -271,7 +272,7 @@ const tree = Tree.generate({
                   role: Component.generate({
                     template: Template.generate({
                       name: "Sample",
-                      url: "./TemplateSample.tsx",
+                      url: "http://localhost:5173/SimplePanel/Template.tsx",
                       thumbnail: Image.generate({
                         src: "http://localhost:5173/images/thumbnail_sample.jpg",
                         assets: [
@@ -322,7 +323,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "SectionTitle",
-                  url: "./SectionTitleTemplatesample.tsx",
+                  url: "http://localhost:5173/SimpleSectionTitle/Template.tsx",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_title_sample.jpg",
                     assets: [
@@ -359,7 +360,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "Sample",
-                  url: "./TemplateSample.tsx",
+                  url: "http://localhost:5173/SimplePanel/Template.tsx",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_sample.jpg",
                     assets: [
@@ -383,7 +384,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "Sample",
-                  url: "./TemplateSample.tsx",
+                  url: "http://localhost:5173/SimplePanel/Template.tsx",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_sample.jpg",
                     assets: [
@@ -407,7 +408,7 @@ const tree = Tree.generate({
               role: Component.generate({
                 template: Template.generate({
                   name: "Sample",
-                  url: "./TemplateSample.tsx",
+                  url: "http://localhost:5173/SimplePanel/Template.tsx",
                   thumbnail: Image.generate({
                     src: "http://localhost:5173/images/thumbnail_sample.jpg",
                     assets: [
@@ -448,7 +449,6 @@ const tree = Tree.generate({
     }),
   ],
 });
-*/
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

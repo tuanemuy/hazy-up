@@ -151,8 +151,8 @@ export const ZoomableFrame = ({
     <Box
       ref={ref}
       position="relative"
-      w="100vw"
-      h="100vh"
+      w="100%"
+      h="100%"
       bgColor="gray.200"
       overflow="scroll"
     >
