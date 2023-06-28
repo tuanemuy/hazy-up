@@ -1,0 +1,196 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model User {
+  id            String       @id @default(cuid())
+  name          String?
+  email         String?      @unique
+  emailVerified DateTime?
+  image         String?
+  role          Role         @default(USER)
+  accounts      Account[]
+  projects      Project[]
+  setting       UserSetting?
+  payment       Payment?
+}
+
+model UserSetting {
+  id     String @id @default(cuid())
+  userId String @unique
+  planId String
+  lang   String
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  plan Plan @relation(fields: [planId], references: [id], onDelete: Restrict)
+}
+
+model Plan {
+  id          String        @id @default(cuid())
+  stripeId    String?       @unique
+  name        String
+  userSetting UserSetting[]
+}
+
+model Payment {
+  id       String @id @default(cuid())
+  userId   String @unique
+  stripeId String @unique
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Project {
+  id           String          @id @default(cuid())
+  userId       String
+  name         String
+  setting      ProjectSetting?
+  baseSize     BaseSize?
+  colorPalette ColorPalette?
+  screens      Screen[]
+  containers   Container[]
+  pages        Page[]
+  images       Image[]
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ProjectSetting {
+  id           String  @id @default(cuid())
+  projectId    String  @unique
+  title        String
+  description  String
+  faviconId    String?
+  coverImageId String?
+  lang         String
+
+  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  favicon    Favicon? @relation(fields: [faviconId], references: [id], onDelete: Restrict)
+  coverImage Image?   @relation(fields: [coverImageId], references: [id], onDelete: Restrict)
+}
+
+model BaseSize {
+  id        String @id @default(cuid())
+  projectId String @unique
+  grid      String
+  box       String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ColorPalette {
+  id         String @id @default(cuid())
+  projectId  String @unique
+  theme      String
+  accent     String
+  background String
+  black      String
+  white      String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model Screen {
+  id        String     @id @default(cuid())
+  projectId String
+  label     String
+  maxWidth  Int
+  container Container?
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, label])
+}
+
+model Container {
+  id        String @id @default(cuid())
+  projectId String
+  screenId  String @unique
+  width     String
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  screen  Screen  @relation(fields: [screenId], references: [id], onDelete: Cascade)
+}
+
+model Page {
+  id        String       @id @default(cuid())
+  projectId String
+  path      String
+  name      String
+  public    Boolean      @default(true)
+  nodeMap   String
+  setting   PageSetting?
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, path])
+}
+
+model PageSetting {
+  id           String  @id @default(cuid())
+  pageId       String  @unique
+  title        String
+  description  String
+  noIndex      Boolean @default(false)
+  coverImageId String?
+
+  page       Page   @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  coverImage Image? @relation(fields: [coverImageId], references: [id], onDelete: Restrict)
+}
+
+model Image {
+  id             String           @id @default(cuid())
+  projectId      String
+  src            String
+  assets         ImageAsset[]
+  pageSetting    PageSetting[]
+  projectSetting ProjectSetting[]
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}
+
+model ImageAsset {
+  id      String @id @default(cuid())
+  imageId String
+  label   String
+  url     String
+
+  image Image @relation(fields: [imageId], references: [id], onDelete: Cascade)
+
+  @@unique([imageId, label])
+}
+
+model Favicon {
+  id             String           @id @default(cuid())
+  url            String
+  projectSetting ProjectSetting[]
+}

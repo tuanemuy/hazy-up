@@ -26,5 +26,11 @@ export default defineConfig({
       },
     },
   },
-  plugins: [react(), tsConfigPaths(), dts()],
+  plugins: [
+    react(),
+    tsConfigPaths(),
+    dts({
+      outputDir: "dist/types/es",
+    }),
+  ],
 });

@@ -5,34 +5,68 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/hazy-up-core.cjs",
-  "module": "./dist/hazy-up-core.js",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/main.cjs",
+  "module": "./dist/main.js",
+  "types": "./dist/types/es/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/main.js",
-      "require": "./dist/main.cjs"
+      "import": {
+        "types": "./dist/types/es/index.d.ts",
+        "default": "./dist/main.js"
+      },
+      "require": {
+        "types": "./dist/types/cjs/index.d.cts",
+        "default": "./dist/main.cjs"
+      }
     },
     "./document": {
-      "types": "./dist/document/index.d.ts",
-      "import": "./dist/document.js",
-      "require": "./dist/document.cjs"
+      "import": {
+        "types": "./dist/types/es/document/index.d.ts",
+        "default": "./dist/document.js"
+      },
+      "require": {
+        "types": "./dist/types/cjs/document/index.d.cts",
+        "default": "./dist/document.cjs"
+      }
     },
     "./editor": {
-      "types": "./dist/editor/index.d.ts",
-      "import": "./dist/editor.js",
-      "require": "./dist/editor.cjs"
+      "import": {
+        "types": "./dist/types/es/editor/index.d.ts",
+        "default": "./dist/editor.js"
+      },
+      "require": {
+        "types": "./dist/types/cjs/editor/index.d.cts",
+        "default": "./dist/editor.cjs"
+      }
     },
     "./theme": {
-      "types": "./dist/theme/index.d.ts",
-      "import": "./dist/theme.js",
-      "require": "./dist/theme.cjs"
+      "import": {
+        "types": "./dist/types/es/theme/index.d.ts",
+        "default": "./dist/theme.js"
+      },
+      "require": {
+        "types": "./dist/types/cjs/theme/index.d.cts",
+        "default": "./dist/theme.cjs"
+      }
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "document": [
+        "./dist/types/es/document/index.d.ts"
+      ],
+      "editor": [
+        "./dist/types/es/editor/index.d.ts"
+      ],
+      "theme": [
+        "./dist/types/es/theme/index.d.ts"
+      ]
     }
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build && npm run cts",
+    "cts": "cp -r dist/types/es dist/types/cjs && find ./dist/types/cjs -maxdepth 2 -name index.d.ts | sed 'p;s/d.ts/d.cts/g' |  xargs -n2 mv",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },

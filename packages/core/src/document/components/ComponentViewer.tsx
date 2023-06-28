@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  Component,
-  GenerateTemplateModuleArgs,
-  TemplateModule,
-} from "@/document";
+import { Component, TemplateModule } from "@/document";
 import { Theme } from "@/theme";
 import { useScreenStateContext } from "@/document/contexts";
 

@@ -6,7 +6,8 @@
   "workspaces": [
     "packages/core",
     "packages/app",
-    "packages/templates"
+    "packages/templates",
+    "packages/db"
   ],
   "license": "MIT"
 }
